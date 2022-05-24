@@ -316,8 +316,8 @@
       }
     },
     "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/src/AssetCreation.sol": {
-      "lastModificationDate": 1653358931062,
-      "contentHash": "4bf9a2010e58c63e45f7da42d55edbf5",
+      "lastModificationDate": 1653431408959,
+      "contentHash": "a2ba2fcd5ff416127ecd934149324cf3",
       "sourceName": "src/AssetCreation.sol",
       "solcConfig": {
         "settings": {
@@ -406,8 +406,8 @@
       }
     },
     "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/test/AssetCreation.t.sol": {
-      "lastModificationDate": 1653360825128,
-      "contentHash": "6d178129d4a6b062e7f33b901d1d20ad",
+      "lastModificationDate": 1653431279924,
+      "contentHash": "fc821a40e6d436fea11c43dab5af4f78",
       "sourceName": "test/AssetCreation.t.sol",
       "solcConfig": {
         "settings": {

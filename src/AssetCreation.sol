@@ -6,19 +6,19 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/TokenTimelock.sol";
 import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
 
-//use is tokentimelock more in future, ether.getERC20Interface(_token)
+//use is tokentimelock more in future, ether.getERC20Interface(ierc20)
 contract AssetCreation is KeeperCompatibleInterface {
 
-    TokenTimelock private _tokenTimeLock; //has IERC20, address benefitary, uint256 release time in seconds
+    TokenTimelock private ierc20TimeLock; //has IERC20, address benefitary, uint256 release time in seconds
 
     uint256 private duration;
-    uint256 public startBlock;
-    uint256 public endBlock;
+    uint256 private startTime;
+    uint256 private endTime;
     uint256 constant USER_PENALTY = 10; // 10=10%, 20=5%, etc
 
     uint256 private immutable i_raisedAmount;
 
-    address public immutable i_assetUser;
+    address private immutable i_assetUser;
     address constant tokens = 0x096f6A2b185d63D942750A2D961f7762401cbA17; //change to a create a new ERC20 address
 
     //payable?
@@ -27,7 +27,7 @@ contract AssetCreation is KeeperCompatibleInterface {
     address constant vaultDAO = 0xeCf6d20544D0e84ca3Ab683F0394158E6c75eAaE;
     //0xeCf6d20544D0e84ca3Ab683F0394158E6c75eAaE; //get checksum'd address on Etherscan
     
-    IERC20 public _token;
+    IERC20 public ierc20;
     
     //DAO initalizes contract for known user
     constructor (
@@ -40,22 +40,25 @@ contract AssetCreation is KeeperCompatibleInterface {
         i_assetUser = _user;
         i_raisedAmount = _raisedAmount;
         //create new token address for contract
-        //_token.transferFrom(msg.sender, tokens, amount);
+        //ierc20.transferFrom(msg.sender, tokens, amount);
     }
 
     // called by user
     function startContract (address _creatorAddr, uint256 _duration) public {
         //require (checkIfUser(msg.sender)); //add logic to check that assetCreator is not assigned yet
         assetCreator = _creatorAddr;
-        startBlock = block.timestamp;
+        startTime = block.timestamp;
         duration = _duration;
-        endBlock = startBlock + _duration;
-        //_tokenTimeLock = new TokenTimelock (ether.getERC20Interface(_token), _creatorAddr, endBlock);
+        endTime = startTime + _duration;
+        ierc20TimeLock = new TokenTimelock (ierc20, _creatorAddr, endTime);
     }
 
     function checkIfUser (address _userAddr) public view returns (bool) {
-        require (_userAddr == i_assetUser, "Provided address did not match assetUser");
-        return true;
+        if (_userAddr == i_assetUser) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function getUser () public view returns (address) {
@@ -67,7 +70,7 @@ contract AssetCreation is KeeperCompatibleInterface {
     }
 
     function checkTimeRemaining () public view returns (uint256) {
-        return endBlock - block.timestamp;
+        return endTime - block.timestamp;
     }
 
     //calls end contract
@@ -79,30 +82,31 @@ contract AssetCreation is KeeperCompatibleInterface {
     //checks if contract duration expired
     function checkUpkeep (bytes calldata) external view returns (
         bool upkeepNeeded, bytes memory performData) {
-        upkeepNeeded = (block.timestamp >= endBlock);
+        upkeepNeeded = (block.timestamp >= endTime);
     }
 
     //executes endContract 
     function performUpkeep(bytes calldata) external override {
-        if(block.timestamp >= endBlock){
+        if(block.timestamp >= endTime){
             endContract();
         }
     }
 
     function endContract() internal virtual {
 
-        if(checkIfUser(msg.sender)){
+        if(checkIfUser(msg.sender)) {
                 //use split tokens in future
-             if (block.timestamp >= endBlock - (duration/2)) {
-                 _token.transfer(vaultDAO, i_raisedAmount/2);
-                 _token.transfer(assetCreator, _token.balanceOf(tokens)/2);
-                 _token.transfer(i_assetUser, _token.balanceOf(tokens));
+             if (block.timestamp >= endTime - (duration/2)) {
+                 //ierc20.transfer(vaultDAO, i_raisedAmount/2);
+                 //ierc20.transfer(assetCreator, ierc20.balanceOf(tokens)/2);
+                 //ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
              } else {
-                 _token.transfer(vaultDAO, ((_token.balanceOf(tokens) - i_raisedAmount) / USER_PENALTY) + i_raisedAmount);
-                 _token.transfer(i_assetUser, _token.balanceOf(tokens));
+                 //ierc20.transfer(vaultDAO, ((ierc20.balanceOf(tokens) - i_raisedAmount) / USER_PENALTY) + i_raisedAmount);
+                 //ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
              }
         } else {
-             _token.transfer(assetCreator, _token.balanceOf(tokens));
+            // got revert error, need to figure this out
+            //ierc20.transfer(assetCreator, ierc20.balanceOf(tokens));
         }
     }
 }

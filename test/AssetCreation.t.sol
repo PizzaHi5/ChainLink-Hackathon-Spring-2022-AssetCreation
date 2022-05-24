@@ -16,24 +16,24 @@ contract AssetCreationTest is DSTest {
     uint256 constant amount = 100;
     uint256 constant raisedAmount = 300;
     address public user = 0xeCf6d20544D0e84ca3Ab683F0394158E6c75eAaE; //vault address atm
-    address private contractAddr;
+    address private creator;
 
     function setUp() public {
         eg = new AssetCreation(amount, raisedAmount, user);
-        contractAddr = 0x1234567890123456789012345678901234567890;
-        eg.startContract(user, 50);
+        creator = 0x1234567890123456789012345678901234567890;
+        eg.startContract(creator, 50);
     }
 
     function testStartContract() public {
-        assertTrue(true);
+        assertEq(creator, eg.getCreator());
     }
 
-    function testIfUser() public {
+    function testCheckIfUser() public {
         assertEq(user, eg.getUser());
     }
 
-    function testTimeRemaining() public {
-        //assertEq(endBlock - block.timestamp;
+    function testTimeRemaining() public view {
+        eg.checkTimeRemaining();
     }
 
     function testCheckUpkeep() public {
