@@ -15,13 +15,14 @@ contract AssetCreationTest is DSTest {
 
     uint256 constant amount = 100;
     uint256 constant raisedAmount = 300;
+    uint256 constant duration = 300;
     address public user = 0xeCf6d20544D0e84ca3Ab683F0394158E6c75eAaE; //vault address atm
     address private creator;
 
     function setUp() public {
         eg = new AssetCreation(amount, raisedAmount, user);
         creator = 0x1234567890123456789012345678901234567890;
-        eg.startContract(creator, 50);
+        eg.startContract(creator, duration);
     }
 
     function testStartContract() public {
@@ -36,23 +37,31 @@ contract AssetCreationTest is DSTest {
         eg.checkTimeRemaining();
     }
 
+    function testCallEndContract() public {
+        //set user to msg.sender in assetCreation
+        
+        cheats.warp(block.timestamp + duration/3);
+        eg.callEndContract();
+        assertTrue(true);
+        cheats.warp(block.timestamp + duration/2);
+        eg.callEndContract();
+        assertTrue(true);
+    }
+
     function testCheckUpkeep() public {
         bytes memory data = '';
         bool upkeepNeeded = false;
         (upkeepNeeded, ) = eg.checkUpkeep(data);
         assertTrue(upkeepNeeded == false);
-        cheats.warp(block.timestamp + 100);
+        cheats.warp(block.timestamp + duration);
         (upkeepNeeded, ) = eg.checkUpkeep(data);
         assertTrue(upkeepNeeded);
     }
 
     function testPerformUpkeep() public {
         bytes memory data = '';
-        
-        cheats.warp(block.timestamp + 100);
+        cheats.warp(block.timestamp + duration);
         eg.performUpkeep(data);
-
         assertTrue(true);
-        //check variables true
     }
 }

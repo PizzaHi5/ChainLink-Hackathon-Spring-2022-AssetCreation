@@ -20,18 +20,26 @@ contract AssetCreation is KeeperCompatibleInterface {
 
     address private immutable i_assetUser;
     address payable private tokens;
+
+    //payable?
     address private assetCreator;
-        
+    
+    address constant vaultDAO = 0xeCf6d20544D0e84ca3Ab683F0394158E6c75eAaE;
+    //0xeCf6d20544D0e84ca3Ab683F0394158E6c75eAaE; //get checksum'd address on Etherscan
+    
     IERC20 public ierc20;
     
+    //DAO initalizes contract for known user
     constructor (
         uint256 amount,
         uint256 _raisedAmount,
         address _user
     ) {
+        // uncomment below b4 deploying
+        //require (msg.sender == vaultDAO, "You are not the DAO"); 
         i_assetUser = _user;
         i_raisedAmount = _raisedAmount;
-        //ierc20.transferFrom(msg.sender, tokens, amount);
+        ierc20.transferFrom(msg.sender, tokens, amount);
     }
 
     // called by user, duration in seconds
@@ -42,7 +50,6 @@ contract AssetCreation is KeeperCompatibleInterface {
         duration = _duration;
         endTime = startTime + _duration;
         tokenTimeLock = new TokenTimelock (ierc20, _creatorAddr, endTime);
-
     }
 
     function checkIfUser (address _userAddr) public view returns (bool) {
@@ -67,8 +74,9 @@ contract AssetCreation is KeeperCompatibleInterface {
 
     //calls end contract
     function callEndContract () public {
-        require (checkIfUser(msg.sender), "You cannot end this contract");
-        endContract();
+        //commented out for testing
+        require (checkIfUser(i_assetUser), "You cannot end this contract");
+        endContract(true);
     }
 
     //checks if contract duration expired
@@ -79,26 +87,26 @@ contract AssetCreation is KeeperCompatibleInterface {
 
     //executes endContract 
     function performUpkeep(bytes calldata) external override {
-        if(block.timestamp >= endTime){
-            endContract();
+        if(block.timestamp >= endTime) {
+            endContract(false);
         }
     }
 
-    function endContract() internal virtual {
+    function endContract(bool _isUser) internal virtual {
 
-        if(checkIfUser(msg.sender)) {
+        if(_isUser) {
                 //use split tokens in future
              if (block.timestamp >= endTime - (duration/2)) {
-                 //ierc20.transfer(vaultDAO, i_raisedAmount/2);
-                 //ierc20.transfer(assetCreator, ierc20.balanceOf(tokens)/2);
-                 //ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
+                 ierc20.transfer(vaultDAO, i_raisedAmount/2);
+                 ierc20.transfer(assetCreator, ierc20.balanceOf(tokens)/2);
+                 ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
              } else {
-                 //ierc20.transfer(vaultDAO, ((ierc20.balanceOf(tokens) - i_raisedAmount) / USER_PENALTY) + i_raisedAmount);
-                 //ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
+                 ierc20.transfer(vaultDAO, ((ierc20.balanceOf(tokens) - i_raisedAmount) / USER_PENALTY) + i_raisedAmount);
+                 ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
              }
         } else {
-            // got revert error, need to figure this out
-            //ierc20.transfer(assetCreator, ierc20.balanceOf(tokens));
+            //called by keeper
+            ierc20.transfer(assetCreator, ierc20.balanceOf(tokens));
         }
     }
 }
