@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 import "ds-test/src/test.sol";
-import "../src/AssetCreation.sol";
+import "../src/AssetCreationr1.sol";
 
 interface CheatCodes {
     function warp(uint256) external;
@@ -11,9 +11,9 @@ interface CheatCodes {
 contract AssetCreationTest is DSTest {
     CheatCodes constant cheats = CheatCodes(HEVM_ADDRESS);
 
-    AssetCreation public eg;
+    AssetCreation private eg;
 
-    uint256 constant amount = 100;
+    uint256 constant amount = 0;
     uint256 constant raisedAmount = 300;
     uint256 constant duration = 300;
     address public user = 0xeCf6d20544D0e84ca3Ab683F0394158E6c75eAaE; //vault address atm

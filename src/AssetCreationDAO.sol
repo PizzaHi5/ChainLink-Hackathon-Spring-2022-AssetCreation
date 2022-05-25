@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/utils/TokenTimelock.sol";
 import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
 
 //use is tokentimelock more in future, ether.getERC20Interface(ierc20)
-contract AssetCreation is KeeperCompatibleInterface {
+contract AssetCreationDAO is KeeperCompatibleInterface {
 
     TokenTimelock private tokenTimeLock; //has IERC20, address benefitary, uint256 release time in seconds
 
@@ -25,7 +25,7 @@ contract AssetCreation is KeeperCompatibleInterface {
     IERC20 public ierc20;
     
     constructor (
-        uint256 amount,
+        //uint256 amount,
         uint256 _raisedAmount,
         address _user
     ) {

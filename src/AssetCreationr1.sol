@@ -17,8 +17,8 @@ contract AssetCreation is KeeperCompatibleInterface {
     uint256 constant USER_PENALTY = 10; // 10=10%, 20=5%, etc
 
     uint256 private immutable i_raisedAmount;
-
     address private immutable i_assetUser;
+
     address payable private tokens;
 
     //payable?
@@ -35,11 +35,10 @@ contract AssetCreation is KeeperCompatibleInterface {
         uint256 _raisedAmount,
         address _user
     ) {
-        // uncomment below b4 deploying
         //require (msg.sender == vaultDAO, "You are not the DAO"); 
         i_assetUser = _user;
         i_raisedAmount = _raisedAmount;
-        ierc20.transferFrom(msg.sender, tokens, amount);
+        //ierc20.transferFrom(vaultDAO, tokens, amount);
     }
 
     // called by user, duration in seconds
@@ -74,7 +73,7 @@ contract AssetCreation is KeeperCompatibleInterface {
 
     //calls end contract
     function callEndContract () public {
-        //commented out for testing
+        //change to msg.sender
         require (checkIfUser(i_assetUser), "You cannot end this contract");
         endContract(true);
     }
@@ -97,16 +96,16 @@ contract AssetCreation is KeeperCompatibleInterface {
         if(_isUser) {
                 //use split tokens in future
              if (block.timestamp >= endTime - (duration/2)) {
-                 ierc20.transfer(vaultDAO, i_raisedAmount/2);
-                 ierc20.transfer(assetCreator, ierc20.balanceOf(tokens)/2);
-                 ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
+                 //ierc20.transfer(vaultDAO, i_raisedAmount/2);
+                 //ierc20.transfer(assetCreator, ierc20.balanceOf(tokens)/2);
+                 //ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
              } else {
-                 ierc20.transfer(vaultDAO, ((ierc20.balanceOf(tokens) - i_raisedAmount) / USER_PENALTY) + i_raisedAmount);
-                 ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
+                 //ierc20.transfer(vaultDAO, ((ierc20.balanceOf(tokens) - i_raisedAmount) / USER_PENALTY) + i_raisedAmount);
+                 //ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
              }
         } else {
-            //called by keeper
-            ierc20.transfer(assetCreator, ierc20.balanceOf(tokens));
+            //called by keeper, need to figure out how txs work
+            //bool sentTx = ierc20.transferFrom(tokens,assetCreator,ierc20.balanceOf(tokens));
         }
     }
 }
