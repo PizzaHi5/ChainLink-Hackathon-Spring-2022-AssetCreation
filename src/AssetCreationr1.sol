@@ -6,10 +6,10 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/TokenTimelock.sol";
 import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
 
-//use is tokentimelock more in future, ether.getERC20Interface(ierc20)
+//use is tokentimelock more in future
 contract AssetCreation is KeeperCompatibleInterface {
 
-    TokenTimelock private tokenTimeLock; //has IERC20, address benefitary, uint256 release time in seconds
+    TokenTimelock private tokenTimeLock;
 
     uint256 private duration;
     uint256 private startTime;
@@ -25,7 +25,6 @@ contract AssetCreation is KeeperCompatibleInterface {
     address private assetCreator;
     
     address constant vaultDAO = 0xeCf6d20544D0e84ca3Ab683F0394158E6c75eAaE;
-    //0xeCf6d20544D0e84ca3Ab683F0394158E6c75eAaE; //get checksum'd address on Etherscan
     
     IERC20 public ierc20;
     
@@ -38,12 +37,14 @@ contract AssetCreation is KeeperCompatibleInterface {
         //require (msg.sender == vaultDAO, "You are not the DAO"); 
         i_assetUser = _user;
         i_raisedAmount = _raisedAmount;
+        //I need to learn how to do transfers properly
         //ierc20.transferFrom(vaultDAO, tokens, amount);
     }
 
     // called by user, duration in seconds
     function startContract (address _creatorAddr, uint256 _duration) public {
-        //require (checkIfUser(msg.sender)); //add logic to check that assetCreator is not assigned yet
+        //change to msg.sender
+        (checkIfUser(i_assetUser)); //add logic to check that assetCreator is not assigned yet
         assetCreator = _creatorAddr;
         startTime = block.timestamp;
         duration = _duration;
@@ -94,9 +95,8 @@ contract AssetCreation is KeeperCompatibleInterface {
     function endContract(bool _isUser) internal virtual {
 
         if(_isUser) {
-                //use split tokens in future
+                //use split tokens in future?
              if (block.timestamp >= endTime - (duration/2)) {
-                 //ierc20.transfer(vaultDAO, i_raisedAmount/2);
                  //ierc20.transfer(assetCreator, ierc20.balanceOf(tokens)/2);
                  //ierc20.transfer(i_assetUser, ierc20.balanceOf(tokens));
              } else {
@@ -105,7 +105,7 @@ contract AssetCreation is KeeperCompatibleInterface {
              }
         } else {
             //called by keeper, need to figure out how txs work
-            //bool sentTx = ierc20.transferFrom(tokens,assetCreator,ierc20.balanceOf(tokens));
+            //bool sentTx = ierc20.transferFrom(tokens,assetCreator,ierc20.balanceOf(tokens)); ???
         }
     }
 }

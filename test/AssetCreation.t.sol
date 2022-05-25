@@ -38,8 +38,6 @@ contract AssetCreationTest is DSTest {
     }
 
     function testCallEndContract() public {
-        //set user to msg.sender in assetCreation
-        
         cheats.warp(block.timestamp + duration/3);
         eg.callEndContract();
         assertTrue(true);

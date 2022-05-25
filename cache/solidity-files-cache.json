@@ -315,54 +315,9 @@
         }
       }
     },
-    "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/src/AssetCreationDAO.sol": {
-      "lastModificationDate": 1653440892658,
-      "contentHash": "4a273153343bea88cbbdcfe268ec3e14",
-      "sourceName": "src/AssetCreationDAO.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "metadata": {
-            "bytecodeHash": "ipfs"
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers"
-              ]
-            }
-          },
-          "evmVersion": "london"
-        }
-      },
-      "imports": [
-        "lib/chainlink/contracts/src/v0.8/KeeperBase.sol",
-        "lib/chainlink/contracts/src/v0.8/KeeperCompatible.sol",
-        "lib/chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/TokenTimelock.sol",
-        "lib/openzeppelin-contracts/contracts/utils/Address.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "AssetCreationDAO": {
-          "0.8.13+commit.abaa5c0e.Linux.gcc": "AssetCreationDAO.sol/AssetCreationDAO.json"
-        }
-      }
-    },
     "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/src/AssetCreationr1.sol": {
-      "lastModificationDate": 1653443546389,
-      "contentHash": "548a6e432e169801898220cde3ffda49",
+      "lastModificationDate": 1653507422479,
+      "contentHash": "0ddf9b004652111be7bfe761e560448b",
       "sourceName": "src/AssetCreationr1.sol",
       "solcConfig": {
         "settings": {
@@ -405,54 +360,9 @@
         }
       }
     },
-    "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/src/figuredoutmapping.sol": {
-      "lastModificationDate": 1653358495018,
-      "contentHash": "41a81ff8e8f95e837c6c8c343b977f6f",
-      "sourceName": "src/figuredoutmapping.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "metadata": {
-            "bytecodeHash": "ipfs"
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers"
-              ]
-            }
-          },
-          "evmVersion": "london"
-        }
-      },
-      "imports": [
-        "lib/chainlink/contracts/src/v0.8/KeeperBase.sol",
-        "lib/chainlink/contracts/src/v0.8/KeeperCompatible.sol",
-        "lib/chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol",
-        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/TokenTimelock.sol",
-        "lib/openzeppelin-contracts/contracts/utils/Address.sol"
-      ],
-      "versionRequirement": "^0.8.0",
-      "artifacts": {
-        "AssetCreationMapping": {
-          "0.8.13+commit.abaa5c0e.Linux.gcc": "figuredoutmapping.sol/AssetCreationMapping.json"
-        }
-      }
-    },
     "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/test/AssetCreation.t.sol": {
-      "lastModificationDate": 1653441465190,
-      "contentHash": "ef198a0caa31197cb9d53ab613a79074",
+      "lastModificationDate": 1653507187889,
+      "contentHash": "e5162c717081b92dd8845c84cbda6b15",
       "sourceName": "test/AssetCreation.t.sol",
       "solcConfig": {
         "settings": {
