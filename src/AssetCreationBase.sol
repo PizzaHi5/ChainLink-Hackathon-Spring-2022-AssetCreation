@@ -21,7 +21,7 @@ abstract contract AssetCreationBase is IERC20 {
         assetUser = stakeholder;
     }
 
-    function user() public view virtual returns (address) {
+    function getUser() public view virtual returns (address) {
         return assetUser;
     }
     
