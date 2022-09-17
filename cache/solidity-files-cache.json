@@ -197,9 +197,46 @@
         }
       }
     },
+    "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/lib/openzeppelin-contracts/contracts/token/ERC20/extensions/draft-IERC20Permit.sol": {
+      "lastModificationDate": 1652740572976,
+      "contentHash": "fb77f144244b9ab12533aa6ce85ef8c5",
+      "sourceName": "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ]
+            }
+          },
+          "evmVersion": "london"
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC20Permit": {
+          "0.8.13+commit.abaa5c0e.Linux.gcc": "draft-IERC20Permit.sol/IERC20Permit.json"
+        }
+      }
+    },
     "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol": {
-      "lastModificationDate": 1652740572999,
-      "contentHash": "76814c83c32552ed2b521c816b4d801a",
+      "lastModificationDate": 1658241888174,
+      "contentHash": "3a843b05b85a270e9455e3d2e804e633",
       "sourceName": "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol",
       "solcConfig": {
         "settings": {
@@ -228,6 +265,7 @@
       },
       "imports": [
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
         "lib/openzeppelin-contracts/contracts/utils/Address.sol"
       ],
       "versionRequirement": "^0.8.0",
@@ -238,7 +276,7 @@
       }
     },
     "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/lib/openzeppelin-contracts/contracts/token/ERC20/utils/TokenTimelock.sol": {
-      "lastModificationDate": 1652740573002,
+      "lastModificationDate": 1663343442162,
       "contentHash": "5d2b54b53436cb1d51e9aed8f2b27982",
       "sourceName": "lib/openzeppelin-contracts/contracts/token/ERC20/utils/TokenTimelock.sol",
       "solcConfig": {
@@ -268,6 +306,7 @@
       },
       "imports": [
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol",
         "lib/openzeppelin-contracts/contracts/utils/Address.sol"
       ],
@@ -279,8 +318,8 @@
       }
     },
     "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/lib/openzeppelin-contracts/contracts/utils/Address.sol": {
-      "lastModificationDate": 1653351092984,
-      "contentHash": "1907721a20f3940c8c10d080893ced64",
+      "lastModificationDate": 1658241888298,
+      "contentHash": "02560bbb9e081911e486286da3fa761f",
       "sourceName": "lib/openzeppelin-contracts/contracts/utils/Address.sol",
       "solcConfig": {
         "settings": {
@@ -315,10 +354,136 @@
         }
       }
     },
-    "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/src/AssetCreationr1.sol": {
+    "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/src/AssetCreationBase.sol": {
+      "lastModificationDate": 1663359986326,
+      "contentHash": "7c1261a76cfb717946a5db4fff53d9c0",
+      "sourceName": "src/AssetCreationBase.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ]
+            }
+          },
+          "evmVersion": "london"
+        }
+      },
+      "imports": [
+        "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/TokenTimelock.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Address.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "AssetCreationBase": {
+          "0.8.13+commit.abaa5c0e.Linux.gcc": "AssetCreationBase.sol/AssetCreationBase.json"
+        }
+      }
+    },
+    "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/src/AssetCreationFundraiser.sol": {
+      "lastModificationDate": 1658247276466,
+      "contentHash": "ab32b2a3616330f97fb021cfd9554b1c",
+      "sourceName": "src/AssetCreationFundraiser.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ]
+            }
+          },
+          "evmVersion": "london"
+        }
+      },
+      "imports": [
+        "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/TokenTimelock.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Address.sol",
+        "src/AssetCreationBase.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {}
+    },
+    "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/src/AssetCreationManualP2P.sol": {
+      "lastModificationDate": 1663451293505,
+      "contentHash": "b8dd1a2f2e1fe7ac4824e8e5901552ea",
+      "sourceName": "src/AssetCreationManualP2P.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs"
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ]
+            }
+          },
+          "evmVersion": "london"
+        }
+      },
+      "imports": [
+        "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/utils/TokenTimelock.sol",
+        "lib/openzeppelin-contracts/contracts/utils/Address.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "AssetCreationManualP2P": {
+          "0.8.13+commit.abaa5c0e.Linux.gcc": "AssetCreationManualP2P.sol/AssetCreationManualP2P.json"
+        }
+      }
+    },
+    "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/src/mocks/AssetCreationr1.sol": {
       "lastModificationDate": 1653530871426,
       "contentHash": "1e7148c238a76ec845182da669220b8a",
-      "sourceName": "src/AssetCreationr1.sol",
+      "sourceName": "src/mocks/AssetCreationr1.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -349,6 +514,7 @@
         "lib/chainlink/contracts/src/v0.8/KeeperCompatible.sol",
         "lib/chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/utils/TokenTimelock.sol",
         "lib/openzeppelin-contracts/contracts/utils/Address.sol"
@@ -360,10 +526,10 @@
         }
       }
     },
-    "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/test/AssetCreation.t.sol": {
-      "lastModificationDate": 1653507187889,
-      "contentHash": "e5162c717081b92dd8845c84cbda6b15",
-      "sourceName": "test/AssetCreation.t.sol",
+    "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/test/AssetCreationManualP2P.t.sol": {
+      "lastModificationDate": 1663453412324,
+      "contentHash": "2448a68fd93e4ea47d6c1e65dc370cba",
+      "sourceName": "test/AssetCreationManualP2P.t.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -390,23 +556,21 @@
         }
       },
       "imports": [
-        "lib/chainlink/contracts/src/v0.8/KeeperBase.sol",
-        "lib/chainlink/contracts/src/v0.8/KeeperCompatible.sol",
-        "lib/chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol",
         "lib/forge-std/lib/ds-test/src/test.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+        "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol",
         "lib/openzeppelin-contracts/contracts/token/ERC20/utils/TokenTimelock.sol",
         "lib/openzeppelin-contracts/contracts/utils/Address.sol",
-        "src/AssetCreationr1.sol"
+        "src/AssetCreationManualP2P.sol"
       ],
       "versionRequirement": "^0.8.13",
       "artifacts": {
-        "AssetCreationTest": {
-          "0.8.13+commit.abaa5c0e.Linux.gcc": "AssetCreation.t.sol/AssetCreationTest.json"
+        "AssetCreationManualP2PTest": {
+          "0.8.13+commit.abaa5c0e.Linux.gcc": "AssetCreationManualP2P.t.sol/AssetCreationManualP2PTest.json"
         },
         "CheatCodes": {
-          "0.8.13+commit.abaa5c0e.Linux.gcc": "AssetCreation.t.sol/CheatCodes.json"
+          "0.8.13+commit.abaa5c0e.Linux.gcc": "AssetCreationManualP2P.t.sol/CheatCodes.json"
         }
       }
     }

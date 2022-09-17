@@ -2,7 +2,6 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/TokenTimelock.sol";
 
 contract AssetCreationManualP2P {
@@ -37,15 +36,17 @@ to end the contract early.
         uint8 _deadlineInterval
     ) {
         require(_creator != address(0), "ERC20:transfer from zero address");
+        require(amount > 0, "Cannot transfer less than 0");
+        //require _tokens is transferable
+
         tokenTimeLock = new TokenTimelock(_tokens, _creator, _releaseTime);
         user = payable(msg.sender);
         deadlineInterval = _deadlineInterval;
         releaseTime = _releaseTime;
-        require(amount > 0, "Cannot transfer less than 0");
         //trying to instantiate a new USDC address for holding tokens
         //unique to this contract
+        holdingAddress = payable(USDCaddress); //change address to be not controlled by either party
         _tokens.transferFrom(user, holdingAddress, amount);
-        
     }
 
     function getUser() public view returns (address) {
@@ -68,12 +69,15 @@ to end the contract early.
         return tokenTimeLock.token().balanceOf(address(this));
     }
     
-    function releaseFunds() private {
+    function releaseFunds() public {
         
+        require(msg.sender == this.getUser() ||
+            msg.sender == this.getCreator());
+
         if (block.timestamp > releaseTime) {
             tokenTimeLock.release();
 
-        // Quarterly Deadlines
+        // Quarterly DeaddeadlineIntervallines
         } else if (deadlineInterval == 4) {
 
             if (block.timestamp > (3*releaseTime)/4) {

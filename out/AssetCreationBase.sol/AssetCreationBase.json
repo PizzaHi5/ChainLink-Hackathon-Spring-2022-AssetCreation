@@ -1,0 +1,858 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "spender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Approval",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "spender",
+          "type": "address"
+        }
+      ],
+      "name": "allowance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "spender",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "approve",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getUser",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalSupply",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "transfer",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferFrom",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "ast": {
+    "absolutePath": "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/src/AssetCreationBase.sol",
+    "id": 2742,
+    "exportedSymbols": {
+      "Address": [
+        2685
+      ],
+      "AssetCreationBase": [
+        2741
+      ],
+      "IERC20": [
+        1922
+      ],
+      "IERC20Permit": [
+        1958
+      ],
+      "SafeERC20": [
+        2239
+      ],
+      "TokenTimelock": [
+        2355
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "32:756:9",
+    "nodes": [
+      {
+        "id": 2687,
+        "nodeType": "PragmaDirective",
+        "src": "32:23:9",
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ]
+      },
+      {
+        "id": 2688,
+        "nodeType": "ImportDirective",
+        "src": "57:56:9",
+        "absolutePath": "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol",
+        "file": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 2742,
+        "sourceUnit": 1923,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 2689,
+        "nodeType": "ImportDirective",
+        "src": "114:69:9",
+        "absolutePath": "/mnt/c/Users/PizzaHi5/Documents/CreatorDAO/CreatorDAO/lib/openzeppelin-contracts/contracts/token/ERC20/utils/TokenTimelock.sol",
+        "file": "@openzeppelin/contracts/token/ERC20/utils/TokenTimelock.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 2742,
+        "sourceUnit": 2356,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 2741,
+        "nodeType": "ContractDefinition",
+        "src": "223:561:9",
+        "nodes": [
+          {
+            "id": 2694,
+            "nodeType": "VariableDeclaration",
+            "src": "280:31:9",
+            "constant": false,
+            "mutability": "mutable",
+            "name": "TimeLock",
+            "nameLocation": "303:8:9",
+            "scope": 2741,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_TokenTimelock_$2355",
+              "typeString": "contract TokenTimelock"
+            },
+            "typeName": {
+              "id": 2693,
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 2692,
+                "name": "TokenTimelock",
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 2355,
+                "src": "280:13:9"
+              },
+              "referencedDeclaration": 2355,
+              "src": "280:13:9",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_TokenTimelock_$2355",
+                "typeString": "contract TokenTimelock"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 2696,
+            "nodeType": "VariableDeclaration",
+            "src": "317:36:9",
+            "constant": false,
+            "mutability": "immutable",
+            "name": "assetUser",
+            "nameLocation": "344:9:9",
+            "scope": 2741,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 2695,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "317:7:9",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 2723,
+            "nodeType": "FunctionDefinition",
+            "src": "364:241:9",
+            "body": {
+              "id": 2722,
+              "nodeType": "Block",
+              "src": "493:112:9",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 2716,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 2708,
+                      "name": "TimeLock",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2694,
+                      "src": "503:8:9",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_TokenTimelock_$2355",
+                        "typeString": "contract TokenTimelock"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "arguments": [
+                        {
+                          "id": 2712,
+                          "name": "_token",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2705,
+                          "src": "532:6:9",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_contract$_IERC20_$1922",
+                            "typeString": "contract IERC20"
+                          }
+                        },
+                        {
+                          "id": 2713,
+                          "name": "beneficiary",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2700,
+                          "src": "540:11:9",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        {
+                          "id": 2714,
+                          "name": "releaseTime",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2698,
+                          "src": "553:11:9",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_contract$_IERC20_$1922",
+                            "typeString": "contract IERC20"
+                          },
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          },
+                          {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        ],
+                        "id": 2711,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "NewExpression",
+                        "src": "514:17:9",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_creation_nonpayable$_t_contract$_IERC20_$1922_$_t_address_$_t_uint256_$returns$_t_contract$_TokenTimelock_$2355_$",
+                          "typeString": "function (contract IERC20,address,uint256) returns (contract TokenTimelock)"
+                        },
+                        "typeName": {
+                          "id": 2710,
+                          "nodeType": "UserDefinedTypeName",
+                          "pathNode": {
+                            "id": 2709,
+                            "name": "TokenTimelock",
+                            "nodeType": "IdentifierPath",
+                            "referencedDeclaration": 2355,
+                            "src": "518:13:9"
+                          },
+                          "referencedDeclaration": 2355,
+                          "src": "518:13:9",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_contract$_TokenTimelock_$2355",
+                            "typeString": "contract TokenTimelock"
+                          }
+                        }
+                      },
+                      "id": 2715,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "514:51:9",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_TokenTimelock_$2355",
+                        "typeString": "contract TokenTimelock"
+                      }
+                    },
+                    "src": "503:62:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_TokenTimelock_$2355",
+                      "typeString": "contract TokenTimelock"
+                    }
+                  },
+                  "id": 2717,
+                  "nodeType": "ExpressionStatement",
+                  "src": "503:62:9"
+                },
+                {
+                  "expression": {
+                    "id": 2720,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 2718,
+                      "name": "assetUser",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2696,
+                      "src": "575:9:9",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 2719,
+                      "name": "stakeholder",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2702,
+                      "src": "587:11:9",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "575:23:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 2721,
+                  "nodeType": "ExpressionStatement",
+                  "src": "575:23:9"
+                }
+              ]
+            },
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "parameters": {
+              "id": 2706,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2698,
+                  "mutability": "mutable",
+                  "name": "releaseTime",
+                  "nameLocation": "394:11:9",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2723,
+                  "src": "386:19:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2697,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "386:7:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2700,
+                  "mutability": "mutable",
+                  "name": "beneficiary",
+                  "nameLocation": "423:11:9",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2723,
+                  "src": "415:19:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2699,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "415:7:9",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2702,
+                  "mutability": "mutable",
+                  "name": "stakeholder",
+                  "nameLocation": "452:11:9",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2723,
+                  "src": "444:19:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2701,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "444:7:9",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2705,
+                  "mutability": "mutable",
+                  "name": "_token",
+                  "nameLocation": "480:6:9",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2723,
+                  "src": "473:13:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IERC20_$1922",
+                    "typeString": "contract IERC20"
+                  },
+                  "typeName": {
+                    "id": 2704,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 2703,
+                      "name": "IERC20",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 1922,
+                      "src": "473:6:9"
+                    },
+                    "referencedDeclaration": 1922,
+                    "src": "473:6:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IERC20_$1922",
+                      "typeString": "contract IERC20"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "376:116:9"
+            },
+            "returnParameters": {
+              "id": 2707,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "493:0:9"
+            },
+            "scope": 2741,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "id": 2731,
+            "nodeType": "FunctionDefinition",
+            "src": "611:90:9",
+            "body": {
+              "id": 2730,
+              "nodeType": "Block",
+              "src": "668:33:9",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 2728,
+                    "name": "assetUser",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 2696,
+                    "src": "685:9:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "functionReturnParameters": 2727,
+                  "id": 2729,
+                  "nodeType": "Return",
+                  "src": "678:16:9"
+                }
+              ]
+            },
+            "functionSelector": "832880e7",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getUser",
+            "nameLocation": "620:7:9",
+            "parameters": {
+              "id": 2724,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "627:2:9"
+            },
+            "returnParameters": {
+              "id": 2727,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2726,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2731,
+                  "src": "659:7:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2725,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "659:7:9",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "658:9:9"
+            },
+            "scope": 2741,
+            "stateMutability": "view",
+            "virtual": true,
+            "visibility": "public"
+          },
+          {
+            "id": 2740,
+            "nodeType": "FunctionDefinition",
+            "src": "711:71:9",
+            "body": {
+              "id": 2739,
+              "nodeType": "Block",
+              "src": "747:35:9",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "id": 2734,
+                        "name": "TimeLock",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2694,
+                        "src": "757:8:9",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_TokenTimelock_$2355",
+                          "typeString": "contract TokenTimelock"
+                        }
+                      },
+                      "id": 2736,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "release",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2354,
+                      "src": "757:16:9",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$__$returns$__$",
+                        "typeString": "function () external"
+                      }
+                    },
+                    "id": 2737,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "757:18:9",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 2738,
+                  "nodeType": "ExpressionStatement",
+                  "src": "757:18:9"
+                }
+              ]
+            },
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "release",
+            "nameLocation": "720:7:9",
+            "parameters": {
+              "id": 2732,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "727:2:9"
+            },
+            "returnParameters": {
+              "id": 2733,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "747:0:9"
+            },
+            "scope": 2741,
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "internal"
+          }
+        ],
+        "abstract": true,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 2690,
+              "name": "IERC20",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 1922,
+              "src": "262:6:9"
+            },
+            "id": 2691,
+            "nodeType": "InheritanceSpecifier",
+            "src": "262:6:9"
+          }
+        ],
+        "canonicalName": "AssetCreationBase",
+        "contractDependencies": [
+          2355
+        ],
+        "contractKind": "contract",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          2741,
+          1922
+        ],
+        "name": "AssetCreationBase",
+        "nameLocation": "241:17:9",
+        "scope": 2742,
+        "usedErrors": []
+      }
+    ]
+  }
+}
