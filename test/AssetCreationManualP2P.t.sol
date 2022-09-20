@@ -14,14 +14,15 @@ contract AssetCreationManualP2PTest is DSTest {
 
     AssetCreationManualP2P private eg;
 
-    uint256 constant _releaseTime= 100;
-    uint256 constant _amount = 1000;
-    uint8 constant _deadlineInterval = 4;
+    uint256 constant public _releaseTime= 100;
+    uint256 constant public _amount = 1000;
+    uint8 constant public _deadlineInterval = 4;
     address public _user;
-    address public _creator = 0x1234567890123456789012345678901234567890; //put address here
+    address payable public _creator;
     IERC20 private tokens;
 
     function setUp() public {
+        _creator = payable(0x1234567890123456789012345678901234567890);
         eg = new AssetCreationManualP2P(
             _releaseTime, 
             _amount, 
@@ -30,40 +31,56 @@ contract AssetCreationManualP2PTest is DSTest {
             _deadlineInterval);
     }
 
-    function testCheckVariables() public {
+    function testReleaseTime() public {
         assertEq(_releaseTime, eg.getReleaseTime());
+    }
+    
+    function testGetAmount() public {
         assertEq(_amount, eg.getAmount());
-        assertEq(_creator, eg.getCreator());
-        assertEq(msg.sender, eg.getUser());
     }
 
-    function testEndContract() public {
-        //Quick End
+    function testGetCreator() public {
+        assertEq(_creator, eg.getCreator());
+    }
+
+    function testGetUser() public {
+        assertEq(payable(msg.sender), eg.getUser());
+    }
+
+    function testQuickEnd() public {
         cheats.warp(block.timestamp + 1);
         eg.releaseFunds();
         assertEq(tokens.balanceOf(eg.getCreator()), _amount/20);
         assertEq(tokens.balanceOf(eg.getUser()), (19*_amount)/20);
+    }
 
-        //Quarterly Interval End
-        //  1st Interval
+    // Quarterly Ending
+    function testFirstQuarterEnd() public {
+        // 1st Interval
         cheats.warp(block.timestamp + 26);
         eg.releaseFunds();
         assertEq(tokens.balanceOf(eg.getCreator()), _amount/4);
         assertEq(tokens.balanceOf(eg.getUser()), (3*_amount)/4);
+    }
 
-        //  2nd Interval
+    function testSecondQuarterEnd() public {
+        // 2nd Interval
         cheats.warp(block.timestamp + 26);
         eg.releaseFunds();
         assertEq(tokens.balanceOf(eg.getCreator()), (2*_amount)/4);
         assertEq(tokens.balanceOf(eg.getUser()), (2*_amount)/4);
+    }
 
-        //  3rd Interval
+    function testThirdQuarterEnd() public {
+        // 3rd Interval
         cheats.warp(block.timestamp + 26);
         eg.releaseFunds();
         assertEq(tokens.balanceOf(eg.getCreator()), (3*_amount)/4);
         assertEq(tokens.balanceOf(eg.getUser()), _amount/4);
-        
-        //  4th Interval
+    }
+
+    function testFourthQuarterEnd() public {
+        // 4th Interval
         cheats.warp(block.timestamp + 26);
         eg.releaseFunds();
         assertEq(tokens.balanceOf(eg.getCreator()), _amount);
