@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
 import "ds-test/src/test.sol";
@@ -17,7 +17,6 @@ contract AssetCreationManualP2PTest is DSTest {
     uint256 constant public _releaseTime= 100;
     uint256 constant public _amount = 1000;
     uint8 constant public _deadlineInterval = 4;
-    address public _user;
     address payable public _creator;
     IERC20 private tokens;
 
@@ -29,6 +28,10 @@ contract AssetCreationManualP2PTest is DSTest {
             _creator, 
             tokens, 
             _deadlineInterval);
+        
+        emit log_address(eg.getCreator());
+        emit log("hello");
+        emit log_named_address("Address: ", eg.getCreator());
     }
 
     function testReleaseTime() public {
@@ -44,8 +47,10 @@ contract AssetCreationManualP2PTest is DSTest {
     }
 
     function testGetUser() public {
-        assertEq(payable(msg.sender), eg.getUser());
+        assertEq(msg.sender, eg.getUser());
     }
+
+    // All following tests fail if any of 4 tests above fail
 
     function testQuickEnd() public {
         cheats.warp(block.timestamp + 1);

@@ -70,13 +70,13 @@ to end the contract early.
         return tokenTimeLock.token().balanceOf(vault);
     }
     
-    function releaseFunds() payable public {
+    function releaseFunds() public {
         
         require(msg.sender == this.getUser() ||
             msg.sender == this.getCreator());
 
         if (block.timestamp > releaseTime) {
-            tokenTimeLock.release();
+            releaseToCreator();
 
         // Quarterly DeaddeadlineIntervallines
         } else if (deadlineInterval == 4) {
@@ -84,15 +84,15 @@ to end the contract early.
             if (block.timestamp > (3*releaseTime)/4) {
                 //75% creator, 25% user
                 releaseToUser(getAmount()/4);
-                releaseToCreator(getAmount());
+                releaseToCreator();
 
             } else if (block.timestamp > (2*releaseTime)/4) {
                 splitRelease();
 
             } else if (block.timestamp > (releaseTime)/4) {
                 //25 creator, 75% user
-                releaseToCreator(getAmount()/4);
-                releaseToUser(getAmount());
+                releaseToUser((3*getAmount())/4);
+                releaseToCreator();
 
             } else {
                 quickRelease();
@@ -104,12 +104,12 @@ to end the contract early.
             if (block.timestamp > (2*releaseTime)/3) {
                 //66% creator, 33% user
                 releaseToUser(getAmount()/3);
-                releaseToCreator(getAmount());
+                releaseToCreator();
 
             } else if (block.timestamp > (releaseTime)/3) {
                 // 33 creator, 66 user
-                releaseToCreator(getAmount()/3);
-                releaseToUser(getAmount());
+                releaseToUser((2*getAmount())/3);
+                releaseToCreator();
 
             } else {
                 quickRelease();
@@ -120,6 +120,7 @@ to end the contract early.
 
             if (block.timestamp > (releaseTime)/2) {
                 splitRelease();
+
             } else {
                 quickRelease();
             }
@@ -130,21 +131,21 @@ to end the contract early.
     
     //Releases 95% to User, 5% to Creator from the contract vault
     function quickRelease () private {
-        releaseToCreator(getAmount()/20);
-        releaseToUser(getAmount());
+        releaseToUser((19*getAmount())/20);
+        releaseToCreator();
     }
 
     function splitRelease() private {
-        releaseToCreator(getAmount()/2);
-        releaseToUser(getAmount());
+        releaseToUser(getAmount()/2);
+        releaseToCreator();
     }
 
     function releaseToUser(uint256 amount) payable public {
         tokenTimeLock.token().transfer(getUser(), amount);
     }
 
-    function releaseToCreator(uint256 amount) payable public {
-        tokenTimeLock.token().transfer(getCreator(), amount);
+    function releaseToCreator() payable public {
+        tokenTimeLock.release();
     }
 
     function customRelease(uint256 creatorCut) private {
