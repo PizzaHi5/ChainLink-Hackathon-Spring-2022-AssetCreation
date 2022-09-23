@@ -24,9 +24,8 @@ to end the contract early.
     uint8 private immutable deadlineInterval; //meant to be 2, 3, or 4
     uint256 private immutable releaseTime; //couldnt compare uint256 with function view returns (uint256)
     address payable private immutable user;
-    address payable private immutable vault = payable(0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174);
 
-    TokenTimelock internal tokenTimeLock;
+    TokenTimelock public tokenTimeLock;
 
     constructor (
         uint256 _releaseTime,
@@ -43,11 +42,12 @@ to end the contract early.
         user = payable(msg.sender);
         deadlineInterval = _deadlineInterval;
         releaseTime = _releaseTime;
-        startContract(amount);
+        //_tokens.transferFrom(user, address(tokenTimeLock), amount);
     }
 
     function startContract(uint256 _amount) payable public {
-        //tokenTimeLock.token().transfer(vault, _amount);
+        //tokenTimeLock.token().allowance(msg.sender, address(tokenTimeLock));
+        //tokenTimeLock.token().transferFrom(user, address(tokenTimeLock), _amount);
     }
 
     function getUser() public view returns (address) {
@@ -58,16 +58,8 @@ to end the contract early.
         return tokenTimeLock.beneficiary();
     }
 
-    function getToken() public view returns (IERC20) {
-        return tokenTimeLock.token();
-    }
-
-    function getReleaseTime() public view returns (uint256) {
-        return tokenTimeLock.releaseTime();
-    }
-
     function getAmount() public view returns (uint256) {
-        return tokenTimeLock.token().balanceOf(vault);
+        return tokenTimeLock.token().balanceOf(address(tokenTimeLock));
     }
     
     function releaseFunds() public {

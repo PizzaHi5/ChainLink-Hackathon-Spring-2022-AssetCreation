@@ -2,6 +2,7 @@
 pragma solidity ^0.8.13;
 
 import "ds-test/src/test.sol";
+import "../src/mocks/mockERC20.sol";
 import "../src/AssetCreationManualP2P.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
@@ -13,6 +14,7 @@ contract AssetCreationManualP2PTest is DSTest {
     CheatCodes constant cheats = CheatCodes(HEVM_ADDRESS);
 
     AssetCreationManualP2P private eg;
+    TestTokenS private ek;
 
     uint256 constant public _releaseTime= 100;
     uint256 constant public _amount = 1000;
@@ -22,20 +24,25 @@ contract AssetCreationManualP2PTest is DSTest {
 
     function setUp() public {
         _creator = payable(0x1234567890123456789012345678901234567890);
+        ek = new TestTokenS();
         eg = new AssetCreationManualP2P(
             _releaseTime, 
             _amount, 
             _creator, 
             tokens, 
             _deadlineInterval);
-        
-        emit log_address(eg.getCreator());
+
+        //tokens.allowance(address(this), address(eg));
+        ek.approve(address(eg), _amount);
+        // amount_ = ek.allowance(address(this), eg.tokenTimeLock.address);
+        eg.startContract(_amount);
+        //.approve(address(eg), _amount);
+        //eg.startContract(_amount);
+        //ek.transfer(address(eg), _amount);
+
         emit log("hello");
         emit log_named_address("Address: ", eg.getCreator());
-    }
 
-    function testReleaseTime() public {
-        assertEq(_releaseTime, eg.getReleaseTime());
     }
     
     function testGetAmount() public {
@@ -47,7 +54,7 @@ contract AssetCreationManualP2PTest is DSTest {
     }
 
     function testGetUser() public {
-        assertEq(msg.sender, eg.getUser());
+        assertEq(address(this), eg.getUser());
     }
 
     // All following tests fail if any of 4 tests above fail
