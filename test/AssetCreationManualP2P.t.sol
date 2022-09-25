@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
+//import "lib/forge-std/src/Test.sol"; //cant get remapping to work
 import "ds-test/src/test.sol";
 import "../src/mocks/mockERC20.sol";
 import "../src/AssetCreationManualP2P.sol";
@@ -32,18 +33,27 @@ contract AssetCreationManualP2PTest is DSTest {
             tokens, 
             _deadlineInterval);
 
-        //tokens.allowance(address(this), address(eg));
         ek.approve(address(eg), _amount);
-        // amount_ = ek.allowance(address(this), eg.tokenTimeLock.address);
-        eg.startContract(_amount);
-        //.approve(address(eg), _amount);
-        //eg.startContract(_amount);
-        //ek.transfer(address(eg), _amount);
-
+        ek.approve(eg.tokenTimeLock.address, _amount);
+       
         emit log("hello");
         emit log_named_address("Address: ", eg.getCreator());
-
     }
+
+    function testStartContract() public {
+        //tokens.allowance(address(this), eg.tokenTimeLock.address);
+
+        uint256 allowance = tokens.allowance(address(this), eg.tokenTimeLock.address);
+        emit log_uint(allowance);
+
+        bool pass = eg.startContract(_amount);
+        assertTrue(pass, "Token transfer failed");
+        //assertEq(tokens.balanceOf(eg.tokenTimeLock.address), _amount);
+    }
+    /* this worked, now get eg to transfer from user to eg.timelock
+    function testMicroTransfer () public {
+        ek.transfer(eg.tokenTimeLock.address, _amount);
+    } */
     
     function testGetAmount() public {
         assertEq(_amount, eg.getAmount());

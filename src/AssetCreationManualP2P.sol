@@ -45,9 +45,10 @@ to end the contract early.
         //_tokens.transferFrom(user, address(tokenTimeLock), amount);
     }
 
-    function startContract(uint256 _amount) payable public {
+    function startContract(uint256 _amount) payable public returns (bool) {
         //tokenTimeLock.token().allowance(msg.sender, address(tokenTimeLock));
-        //tokenTimeLock.token().transferFrom(user, address(tokenTimeLock), _amount);
+        bool pass = tokenTimeLock.token().transferFrom(user, address(tokenTimeLock), _amount);
+        return pass;
     }
 
     function getUser() public view returns (address) {
