@@ -26,28 +26,24 @@ to end the contract early.
     uint256 private immutable releaseTime; //couldnt compare uint256 with function view returns (uint256)
 
     mapping (address => bool) public whiteList;
-    mapping (bool => address) public listWhite; 
+    mapping (bool => address) internal listWhite; 
 
     TokenTimelock public tokenTimeLock;
 
     constructor (
         uint256 _releaseTime,
-        uint256 amount,
         address _creator,
         IERC20 _tokens,
         uint8 _deadlineInterval
     ) {
         require(_creator != address(0), "ERC20:transfer from zero address");
-        require(amount > 0, "Cannot transfer 0 or less");
 
         tokenTimeLock = new TokenTimelock(_tokens, _creator, _releaseTime);
         
-        //I understand mappings now :) True = creator, False = user
         whiteList[payable(_creator)] = true;
         listWhite[whiteList[_creator]] = _creator;
         whiteList[payable(msg.sender)] = true;
         listWhite[!whiteList[msg.sender]] = msg.sender;
-
         deadlineInterval = _deadlineInterval;
         releaseTime = _releaseTime;
     }
@@ -58,9 +54,11 @@ to end the contract early.
     }
 
     function startContract(uint256 _amount) payable public onlyWhiteList {
+        require(_amount > 0, "Cannot transfer 0 or less");
+
+        //Got to keep working on this
         tokenTimeLock.token().safeIncreaseAllowance(address(tokenTimeLock), _amount);
-        tokenTimeLock.token().safeTransferFrom(getUser(), address(tokenTimeLock), _amount);
-            //getUser(), address(tokenTimeLock), _amount);
+        tokenTimeLock.token().safeTransferFrom(getUser(), address(tokenTimeLock), _amount);        
     }
 
     function getUser() public view returns (address) {
@@ -81,7 +79,7 @@ to end the contract early.
         if (block.timestamp > releaseTime) {
             releaseToCreator();
 
-        // Quarterly DeaddeadlineIntervallines
+        // Four-Fold Deadlines
         } else if (deadlineInterval == 4) {
 
             if (block.timestamp > (3*releaseTime)/4) {
@@ -144,7 +142,7 @@ to end the contract early.
     }
 
     function releaseToUser(uint256 amount) payable public onlyWhiteList {
-        //tokenTimeLock.token().transfer(getUser(), amount);
+        //transfer here
     }
 
     function releaseToCreator() payable public onlyWhiteList {
@@ -152,6 +150,6 @@ to end the contract early.
     }
 
     function customRelease(uint256 creatorCut) private {
-        //maybe write this? 
+        //can write this
     }
 }   

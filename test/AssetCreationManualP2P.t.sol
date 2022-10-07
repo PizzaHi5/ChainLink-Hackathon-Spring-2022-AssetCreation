@@ -28,7 +28,6 @@ contract AssetCreationManualP2PTest is DSTest {
         ek = new TestTokenS();
         eg = new AssetCreationManualP2P(
             _releaseTime, 
-            _amount, 
             _creator, 
             tokens, 
             _deadlineInterval);
@@ -39,10 +38,6 @@ contract AssetCreationManualP2PTest is DSTest {
         assertEq(tokens.balanceOf(eg.tokenTimeLock.address), _amount);
         //assertEq(tokens.balanceOf(eg.tokenTimeLock.address), _amount);
     }
-    /* this worked, now get eg to transfer from user to eg.timelock
-    function testMicroTransfer () public {
-        ek.transfer(eg.tokenTimeLock.address, _amount);
-    } */
     
     function testGetAmount() public {
         assertEq(_amount, eg.getAmount());
