@@ -32,22 +32,11 @@ contract AssetCreationManualP2PTest is DSTest {
             _creator, 
             tokens, 
             _deadlineInterval);
-
-        ek.approve(address(eg), _amount);
-        ek.approve(eg.tokenTimeLock.address, _amount);
-       
-        emit log("hello");
-        emit log_named_address("Address: ", eg.getCreator());
     }
 
     function testStartContract() public {
-        //tokens.allowance(address(this), eg.tokenTimeLock.address);
-
-        uint256 allowance = tokens.allowance(address(this), eg.tokenTimeLock.address);
-        emit log_uint(allowance);
-
-        bool pass = eg.startContract(_amount);
-        assertTrue(pass, "Token transfer failed");
+        eg.startContract(_amount);
+        assertEq(tokens.balanceOf(eg.tokenTimeLock.address), _amount);
         //assertEq(tokens.balanceOf(eg.tokenTimeLock.address), _amount);
     }
     /* this worked, now get eg to transfer from user to eg.timelock

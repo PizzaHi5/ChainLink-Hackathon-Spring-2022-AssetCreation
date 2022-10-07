@@ -3,27 +3,30 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/utils/TokenTimelock.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 contract AssetCreationManualP2P {
-    
+    using SafeERC20 for IERC20;
 /*  Technical Description
 This contract initalizes a Manual P2P asset creation stand-alone contract.
 
 The core idea of this contract is to have the user initalize the contract by
-supplying USDC to a token address for holding. The user and the creator 
+supplying a ERC20 to a token address for holding. The user and the creator 
 have the option to end the contract earlier from their initially supplied 
 wallet addresses. At end term, the creator will pay gas to recieve the funds 
 in the contract. 
 
     Simple Description
 This creates a contract between 2 people. One person pays to create the contract 
-and supplys the money (stakeholder), and the other pays to recieve the money 
+and supplys the money (stakeholder), and the other pays to receive the money 
 (benefitary). The contracts holds the money. Both people have the option to pay 
 to end the contract early. 
 */
     uint8 private immutable deadlineInterval; //meant to be 2, 3, or 4
     uint256 private immutable releaseTime; //couldnt compare uint256 with function view returns (uint256)
-    address payable private immutable user;
+
+    mapping (address => bool) public whiteList;
+    mapping (bool => address) public listWhite; 
 
     TokenTimelock public tokenTimeLock;
 
@@ -36,38 +39,45 @@ to end the contract early.
     ) {
         require(_creator != address(0), "ERC20:transfer from zero address");
         require(amount > 0, "Cannot transfer 0 or less");
-        //require _tokens is transferable
 
         tokenTimeLock = new TokenTimelock(_tokens, _creator, _releaseTime);
-        user = payable(msg.sender);
+        
+        //I understand mappings now :) True = creator, False = user
+        whiteList[payable(_creator)] = true;
+        listWhite[whiteList[_creator]] = _creator;
+        whiteList[payable(msg.sender)] = true;
+        listWhite[!whiteList[msg.sender]] = msg.sender;
+
         deadlineInterval = _deadlineInterval;
         releaseTime = _releaseTime;
-        //_tokens.transferFrom(user, address(tokenTimeLock), amount);
     }
 
-    function startContract(uint256 _amount) payable public returns (bool) {
-        //tokenTimeLock.token().allowance(msg.sender, address(tokenTimeLock));
-        bool pass = tokenTimeLock.token().transferFrom(user, address(tokenTimeLock), _amount);
-        return pass;
+    modifier onlyWhiteList {
+        require(whiteList[msg.sender] == true, "Only WhiteList");
+        _; //figure out why this is here in example
+    }
+
+    function startContract(uint256 _amount) payable public onlyWhiteList {
+        tokenTimeLock.token().safeIncreaseAllowance(address(tokenTimeLock), _amount);
+        tokenTimeLock.token().safeTransferFrom(getUser(), address(tokenTimeLock), _amount);
+            //getUser(), address(tokenTimeLock), _amount);
     }
 
     function getUser() public view returns (address) {
-        return user;
+        return listWhite[false];
     }
     
     function getCreator() public view returns (address) {
         return tokenTimeLock.beneficiary();
+        //or listWhite[true];
     }
 
     function getAmount() public view returns (uint256) {
         return tokenTimeLock.token().balanceOf(address(tokenTimeLock));
     }
     
-    function releaseFunds() public {
+    function releaseFunds() public onlyWhiteList {
         
-        require(msg.sender == this.getUser() ||
-            msg.sender == this.getCreator());
-
         if (block.timestamp > releaseTime) {
             releaseToCreator();
 
@@ -133,11 +143,11 @@ to end the contract early.
         releaseToCreator();
     }
 
-    function releaseToUser(uint256 amount) payable public {
-        tokenTimeLock.token().transfer(getUser(), amount);
+    function releaseToUser(uint256 amount) payable public onlyWhiteList {
+        //tokenTimeLock.token().transfer(getUser(), amount);
     }
 
-    function releaseToCreator() payable public {
+    function releaseToCreator() payable public onlyWhiteList {
         tokenTimeLock.release();
     }
 
